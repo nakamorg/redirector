@@ -1,0 +1,63 @@
+################################################################
+#
+# Configuration sample for Traefik v2.
+#
+################################################################
+
+################################################################
+# EntryPoints configuration
+################################################################
+
+# EntryPoints definition
+#
+# Optional
+#
+entryPoints:
+  websecure:
+    address: :443
+
+  web:
+    address: :80
+    http:
+      redirections:
+        entryPoint:
+          scheme: https
+          to: websecure
+          permanent: true
+
+################################################################
+# Traefik logs configuration
+################################################################
+log:
+  level: WARN
+
+################################################################
+# Access logs configuration
+################################################################
+accessLog:
+  bufferingsize: 1
+  format: json
+
+################################################################
+# File provider backend
+################################################################
+providers:
+  file:
+    directory: dynamic-conf
+    watch: true
+
+################################################################
+# TLS Certs
+################################################################
+certificatesResolvers:
+  main-resolver:
+    # Enable ACME (Let's Encrypt): automatic SSL.
+    acme:
+      email: "nakam@nakamorg.com"
+      storage: "acme.json"
+      # CA server to use.
+      # Default: "https://acme-v02.api.letsencrypt.org/directory"
+      #
+      # caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+      httpChallenge:
+        entryPoint: web
