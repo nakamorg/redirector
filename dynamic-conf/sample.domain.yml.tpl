@@ -3,7 +3,7 @@ http:
     https.<host-name>:
       entryPoints:
       - websecure
-      rule: "Host(`<host-name>)"
+      rule: "Host(`<host-name>`)"
       tls:
         certResolver: main-resolver
       middlewares:
