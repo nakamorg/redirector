@@ -1,0 +1,14 @@
+http:
+  middlewares:
+    nakam-headers:
+      headers:
+        customRequestHeaders:
+          proxied-via: "traefik"
+        customResponseHeaders:
+          product-of: "nakamorg"
+          proxied-via: "traefik"
+
+  services:
+    dummy:
+      loadBalancer:
+        servers: {}

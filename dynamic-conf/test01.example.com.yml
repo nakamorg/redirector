@@ -1,0 +1,19 @@
+http:
+  routers:
+    https.test01.example.com:
+      entryPoints:
+      - websecure
+      rule: "Host(`test01.example.com`)"
+      tls:
+        certResolver: main-resolver
+      middlewares:
+      - redirect.test01.example.com
+      service: dummy
+
+
+  middlewares:
+    redirect.test01.example.com:
+      redirectRegex:
+        permanent: true
+        regex: "^https://test01.example.com/(.*)"
+        replacement: "https://google.com/search?q=${1}"
